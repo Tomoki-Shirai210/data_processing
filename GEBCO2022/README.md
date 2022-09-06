@@ -4,6 +4,7 @@
 
 ## Requirements
 - Netcdf4 (for python)  
+#####################################
 (optional)
 - matplotlib.pyplot
 - h5py
