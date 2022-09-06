@@ -13,5 +13,6 @@
 You can download the GEBCO global elevation data: 
 https://www.gebco.net/data_and_products/gridded_bathymetry_data/
 
-## Example: Plesase see the attached picture
+## Example: 
+Plesase see the attached picture. The shaded values are elevation in [m].
 ![elv_30-35](https://user-images.githubusercontent.com/84554010/188616191-ead6f215-200e-4287-9a9d-8921b9134681.png)
