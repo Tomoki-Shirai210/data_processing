@@ -2,7 +2,12 @@
 - GEBCO Netcdf data(2022) -> ascii form (Longitude, Latitude, elevation) conversion
 
 ## Requirements
-- Netcdf4 (for python)
+- Netcdf4 (for python)  
+
+(optional)
+- matplotlib.pyplot
+- h5py
+
 
 ## Data 
 You can download the GEBCO global elevation data: 
