@@ -3,9 +3,9 @@
 **Feel free to use this script but your own risk.**
 
 ## Requirements
+##################(must)###################
 - Netcdf4 (for python)  
-#####################################
-(optional)
+##################(optional)###################
 - matplotlib.pyplot
 - h5py
 
