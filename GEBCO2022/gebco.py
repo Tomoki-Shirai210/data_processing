@@ -1,21 +1,22 @@
 from netCDF4 import Dataset
 import numpy as np
 import matplotlib.pyplot as plt
-import h5py
+#import h5py
 import time
 ######0. User dependent definition######
-#ds.close()
-outf='cyugoku.dat'
-ds = Dataset('../GEBCO_2022_org.nc')  # 2022 15arc grid https://www.gebco.net/data_and_products/gridded_bathymetry_data/
+#set file names
+outf='output.dat'
+ds = Dataset('./GEBCO_2022.nc')  # 2022 15arc grid downloaded from : https://www.gebco.net/data_and_products/gridded_bathymetry_data/
 
-enable_write=1 #1: write 2: NOT write
+#Do you need an ascii output file?
+enable_write=1 #1: Yes 2: NO
 
-lonmin=128.0
-lonmax=138.0
-latmin=32.0
-latmax=37.0
+#set the domain which you want 
+lonmin=125.0 
+lonmax=135.0
+latmin=30.0
+latmax=35.0
 
-###############DO NOT CHANGE BELLOW AS POSSIBLE###################
 ######1. calc index of lons and lats######
 
 xmin=0; xmax=0; ymin=0; ymax=0; elvmin=0; elvmax=0
