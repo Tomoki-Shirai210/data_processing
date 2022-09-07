@@ -1,22 +1,21 @@
 from netCDF4 import Dataset
 import numpy as np
 import matplotlib.pyplot as plt
-#import h5py
+import h5py
 import time
 ######0. User dependent definition######
-#set file names
-outf='output.dat'
-ds = Dataset('./GEBCO_2022.nc')  # 2022 15arc grid downloaded from : https://www.gebco.net/data_and_products/gridded_bathymetry_data/
+#ds.close()
+outf='test.asc'
+ds = Dataset('../GEBCO_2022_org.nc')  # 2022 15arc grid https://www.gebco.net/data_and_products/gridded_bathymetry_data/
 
-#Do you need an ascii output file?
-enable_write=1 #1: Yes 2: NO
+enable_write=1 #1: write 2: NOT write
 
-#set the domain which you want 
-lonmin=125.0 
-lonmax=135.0
-latmin=30.0
+lonmin=129.0
+lonmax=130.0
+latmin=34.0
 latmax=35.0
 
+###############DO NOT CHANGE BELLOW AS POSSIBLE###################
 ######1. calc index of lons and lats######
 
 xmin=0; xmax=0; ymin=0; ymax=0; elvmin=0; elvmax=0
@@ -72,14 +71,16 @@ lats_new = np.array([])
 lats2 = np.array(lats)
 for j in range(len(lats)):
     lats_fix = lats[j]
-    print(j/len(lats)*100, ' % DONE')
+    if j%100==0:
+        print(j/len(lats)*100, ' % DONE')
     for k in range(len(lons)):
         lats_new = np.append(lats_new, lats_fix)
 print('lats check',lats_new)
 print('lats processing time: ',time.time() - start2)
-#elv2 = np.array(elv)
-elv2 = np.reshape(np.array(elv), (datanum,))
 
+elv2 = np.array(elv)
+elv2 = elv2.astype(int)
+elv2 = np.reshape(elv2, (datanum,))
 print('lons ',lons_all.shape,',lats ', lats_new.shape,',elvs ', elv2.shape)
 
 con = np.array([])
@@ -94,7 +95,7 @@ print(con)
 print('4. Output')
 
 if enable_write==1:
-    np.savetxt(outf, con, fmt='%.5f', delimiter='   ')
+    np.savetxt(outf, con, fmt=["%.5f", "%.5f", "%.0f"], delimiter='   ')
     print('Output file was created')
 else: 
     print('Warning: Output file was not created')
