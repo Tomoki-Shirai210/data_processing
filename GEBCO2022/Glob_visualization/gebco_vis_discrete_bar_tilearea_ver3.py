@@ -20,12 +20,12 @@ print_available_memory()
 with netCDF4.Dataset('./GEBCO_2022.nc', 'r') as dataset:
     lon = dataset.variables['lon'][:]
     lat = dataset.variables['lat'][:]
-    elevation = dataset.variables['elevation'][:]
+    elevation = dataset.variables['elevation'][:] 
 
 step = 5
 lon = lon[::step]
 lat = lat[::step]
-elevation = elevation[::step, ::step]
+elevation = elevation[::step, ::step] #elevationの値も間引いているので、ヒストグラム出力でも間引かれた後の値で計算されている
 
 fig, ax = plt.subplots(figsize=(12, 12))
 
@@ -42,6 +42,7 @@ red_mask = np.logical_and(elevation >= -10, elevation < 0)
 
 rectangles=[]
 
+#maskした値に対して、Rectangle関数を使って赤色に塗りつぶしを行う
 for i in range(red_mask.shape[0] - 1):
     for j in range(red_mask.shape[1] - 1):
         if red_mask[i, j]:
@@ -93,7 +94,7 @@ print(f"Tile area standard deviation: {tile_areas_std:.6f} km^2")
 # Count the number of tiles with elevation between -10 and 0
 num_tiles = np.sum((elevation >= -10) & (elevation < 0))
 
-print(f"Number of tiles with elevation between -10 and 0: {num_tiles}")
+print(f"Number of tiles with elevation: {num_tiles}")
 
 
 # Plot histogram of elevation values in the range -100 to -10 m
