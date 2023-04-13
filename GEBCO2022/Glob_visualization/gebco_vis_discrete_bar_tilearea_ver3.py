@@ -20,12 +20,12 @@ print_available_memory()
 with netCDF4.Dataset('./GEBCO_2022.nc', 'r') as dataset:
     lon = dataset.variables['lon'][:]
     lat = dataset.variables['lat'][:]
-    elevation = dataset.variables['elevation'][:] 
+    elevation = dataset.variables['elevation'][:]
 
 step = 5
 lon = lon[::step]
 lat = lat[::step]
-elevation = elevation[::step, ::step] #elevationの値も間引いているので、ヒストグラム出力でも間引かれた後の値で計算されている
+elevation = elevation[::step, ::step]
 
 fig, ax = plt.subplots(figsize=(12, 12))
 
@@ -42,7 +42,6 @@ red_mask = np.logical_and(elevation >= -10, elevation < 0)
 
 rectangles=[]
 
-#maskした値に対して、Rectangle関数を使って赤色に塗りつぶしを行う
 for i in range(red_mask.shape[0] - 1):
     for j in range(red_mask.shape[1] - 1):
         if red_mask[i, j]:
@@ -92,10 +91,39 @@ print(f"Tile area mean: {tile_areas_mean:.6f} km^2")
 print(f"Tile area standard deviation: {tile_areas_std:.6f} km^2")
 
 # Count the number of tiles with elevation between -10 and 0
+
+num_tiles = np.sum((elevation >= -0.1) & (elevation < 0.1))
+print(f"Number of tiles with elevation 0: {num_tiles}")
+
 num_tiles = np.sum((elevation >= -10) & (elevation < 0))
+print(f"Number of tiles with elevation between -10 and 0: {num_tiles}")
 
-print(f"Number of tiles with elevation: {num_tiles}")
+num_tiles = np.sum((elevation >= -20) & (elevation < -10))
+print(f"Number of tiles with elevation between -20 and -10: {num_tiles}")
 
+num_tiles = np.sum((elevation >= -30) & (elevation < -20))
+print(f"Number of tiles with elevation between -30 and -20: {num_tiles}")
+
+num_tiles = np.sum((elevation >= -40) & (elevation < -30))
+print(f"Number of tiles with elevation between -40 and -30: {num_tiles}")
+
+num_tiles = np.sum((elevation >= -50) & (elevation < -40))
+print(f"Number of tiles with elevation between -50 and -40: {num_tiles}")
+
+num_tiles = np.sum((elevation >= -60) & (elevation < -50))
+print(f"Number of tiles with elevation between -60 and -50: {num_tiles}")
+
+num_tiles = np.sum((elevation >= -70) & (elevation < -60))
+print(f"Number of tiles with elevation between -70 and -60: {num_tiles}")
+
+num_tiles = np.sum((elevation >= -80) & (elevation < -70))
+print(f"Number of tiles with elevation between -80 and -70: {num_tiles}")
+
+num_tiles = np.sum((elevation >= -90) & (elevation < -80))
+print(f"Number of tiles with elevation between -90 and -80: {num_tiles}")
+
+num_tiles = np.sum((elevation >= -100) & (elevation < -90))
+print(f"Number of tiles with elevation between -100 and -90: {num_tiles}")
 
 # Plot histogram of elevation values in the range -100 to -10 m
 mask = np.logical_and(elevation >= -100, elevation < 0)
